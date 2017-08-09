@@ -3,13 +3,9 @@ package lt.vsc.darius.laivu_musis.main;
 public class Suvis {
 	private static int kiekSuviuBuvo = 0;
 	private static int kiekTaikliuSuviuBuvo = 0;
-	private int x;
-	private int y;
 	private boolean arTaiklus;
 
-	public Suvis(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Suvis() {
 		arTaiklus = false;
 		kiekSuviuBuvo++;
 	}
@@ -23,14 +19,6 @@ public class Suvis {
 		return arTaiklus;
 	}
 
-	public int getY() {
-		return y;
-	}
-
-	public int getX() {
-		return x;
-	}
-
 	public static int getKiekSuviuBuvo() {
 		return kiekSuviuBuvo;
 	}
@@ -38,6 +26,5 @@ public class Suvis {
 	public static int getKiekTaikliuSuviuBuvo() {
 		return kiekTaikliuSuviuBuvo;
 	}
-
 
 }

@@ -3,8 +3,11 @@ package lt.vsc.darius.laivu_musis.main;
 import java.util.ArrayList;
 
 public class AplinkaImplementation implements Aplinka {
-	private int xMax = 10;
-	private int yMax = 10;
+	private static int xyMax = 10;
+	private static int maxKeturvieciu = 1;
+	private static int maxTrivieciu = 2;
+	private static int maxDvivieciu = 3;
+	private static int maxVienvieciu = 4;
 	private LaivasImplementation[][] lenta = new LaivasImplementation[10][10];
 	private Suvis[][] suviuLenta = new Suvis[10][10];
 	private ArrayList<LaivasImplementation> laivuEile = new ArrayList<LaivasImplementation>();
@@ -14,18 +17,10 @@ public class AplinkaImplementation implements Aplinka {
 		x = x - 1;
 		y = y - 1;
 		LaivasImplementation naujasLaivas = null;
-		switch (kryptis) {
-		case HORIZONTAL:
-			xMax = xMax - dydis;
-			break;
-
-		case VERTICAL:
-			xMax = xMax - dydis;
-			break;
-		}
-		if (x <= xMax && x >= 0 && y <= yMax && y >= 0) {
+		if (arGaliuDetiLaivaTokioDydzio(dydis)) {
 			naujasLaivas = new LaivasImplementation(dydis, x, y, kryptis);
 			laivuEile.add(naujasLaivas);
+			mazinkDydziuLikucius(dydis);
 			lenta[x][y] = naujasLaivas;
 			while (dydis > 1) {
 				if (kryptis == Kryptis.VERTICAL)
@@ -42,9 +37,10 @@ public class AplinkaImplementation implements Aplinka {
 
 	@Override
 	public int gautiGyvuLaivuSkaiciu() {
-		int i=0;
-		for (LaivasImplementation l:laivuEile)
-			if (l.isArGyvas()== true) i++;
+		int i = 0;
+		for (LaivasImplementation l : laivuEile)
+			if (l.isArGyvas() == true)
+				i++;
 		return i;
 	}
 
@@ -71,15 +67,16 @@ public class AplinkaImplementation implements Aplinka {
 
 	@Override
 	public boolean sauti(int x, int y) {
-		x=x-1;
-		y=y-1;
+		x = x - 1;
+		y = y - 1;
+		suviuLenta[x][y] = new Suvis();
 		if (lenta[x][y] != null) {
 			suviuLenta[x][y].setSuvisTaiklus();
 			lenta[x][y].mazintiLaivoGyvybes();
 			return true;
-		}
-		else return false;
-		
+		} else
+			return false;
+
 	}
 
 	@Override
@@ -89,5 +86,67 @@ public class AplinkaImplementation implements Aplinka {
 
 	public Suvis[][] getSuviuLenta() {
 		return suviuLenta;
+	}
+
+	public boolean arGaliuDetiLaivaTokioDydzio(int laivoDysis) {
+		switch (laivoDysis) {
+		case 1:
+			if (maxVienvieciu > 0)
+				return true;
+			break;
+		case 2:
+
+			if (maxDvivieciu > 0)
+				return true;
+			break;
+		case 3:
+			if (maxTrivieciu > 0)
+				return true;
+			break;
+		case 4:
+			if (maxKeturvieciu > 0)
+				return true;
+			break;
+		}
+		return false;
+
+	}
+
+	public void mazinkDydziuLikucius(int laivoDysis) {
+		switch (laivoDysis) {
+		case 1:
+			maxVienvieciu--;
+			break;
+		case 2:
+			maxDvivieciu--;
+			break;
+		case 3:
+			maxTrivieciu--;
+			break;
+		case 4:
+			maxKeturvieciu--;
+			break;
+
+		}
+	}
+
+	public boolean arLaivasNelipaAntKitoIrTelpaILenta(int dydis, int x, int y, Kryptis kryptis) {
+		
+		int xMax = xyMax;
+		int yMax = xyMax;
+		boolean arTelpa = false;
+		switch (kryptis) {
+		case HORIZONTAL:
+			xMax = xyMax - dydis;
+			break;
+
+		case VERTICAL:
+			yMax = xyMax - dydis;
+			break;
+		}
+		if (x <= xMax && x >= 0 && y <= yMax && y >= 0) arTelpa = true;
+		if (arTelpa && lenta[x][y]==null)
+		}
+		
 	}
 }
