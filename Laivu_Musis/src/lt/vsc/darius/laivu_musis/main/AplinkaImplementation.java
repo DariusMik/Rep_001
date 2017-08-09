@@ -6,7 +6,7 @@ public class AplinkaImplementation implements Aplinka {
 	private int xMax = 10;
 	private int yMax = 10;
 	private LaivasImplementation[][] lenta = new LaivasImplementation[10][10];
-	private SuviuLenta suviuLenta = new SuviuLenta();
+	private Suvis[][] suviuLenta = new Suvis[10][10];
 	private ArrayList<LaivasImplementation> laivuEile = new ArrayList<LaivasImplementation>();
 
 	@Override
@@ -74,7 +74,7 @@ public class AplinkaImplementation implements Aplinka {
 		x=x-1;
 		y=y-1;
 		if (lenta[x][y] != null) {
-			suviuLenta.setPataikyta(x, y);
+			suviuLenta[x][y].setSuvisTaiklus();
 			lenta[x][y].mazintiLaivoGyvybes();
 			return true;
 		}
@@ -87,4 +87,7 @@ public class AplinkaImplementation implements Aplinka {
 		return laivuEile.size();
 	}
 
+	public Suvis[][] getSuviuLenta() {
+		return suviuLenta;
+	}
 }
